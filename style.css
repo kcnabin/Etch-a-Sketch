@@ -1,0 +1,37 @@
+/** {
+	border: 1px solid red;
+}*/
+/*
+.wrapper div {
+	width: 30px;
+	height: 30px;
+	background-color: gold;
+}*/
+
+:root {
+	--rowNum: 4;
+	--colNum: 5;
+	--gridHeight: 20px;
+}
+
+.wrapper {
+	display: grid;
+	grid-template-columns: repeat(var(--colNum), 20px);
+	grid-template-rows: repeat(var(--rowNum), var(--gridHeight));
+
+
+}
+
+.grid-item {
+	/*grid-column-start: auto;
+	grid-row-start: auto;*/
+	border: 1px solid red;
+}
+
+.wrapper .highLight {
+	background-color: #e5b3e8;
+}
+
+/*.wrapper .colorIt {
+	background-color: #e02feb;
+}*/
