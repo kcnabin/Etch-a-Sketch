@@ -3,21 +3,34 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Sketch Pad</title>
+	<title>Sketch Pad Project</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-	<div class="wrapper"></div>
+	<div class="title">Etch-a-Sketch</div>
+	<div class="workspace">
+		<div class="info">
+			<button class="reset" onClick="refreshPage()">Reset Size</button>
+			<button class="clear">Clear Workspace</button>
+			<button class="erase">Erase Section</button>
+		</div>
+		<div class="wrapper"></div>
+	</div>
 
+	<div id="footer">
+			<p>Design by <a href="https://github.com/kcnabin">Nabin KC</a> in association with <a href="https://www.theodinproject.com/">The Odin Project.</a></p>
+	</div>
+	
 	<script type="text/javascript">
 		let mouseDown = false
 		document.body.onmousedown = () => (mouseDown = true)
 		document.body.onmouseup = () => (mouseDown = false)
 
-		let side = +prompt("How many sides do you want?", 20);
+		let side = +prompt("How many sides do you want?", 50);
 		const box = document.querySelector(".wrapper");
 		for (let i=0; i<side*side; i++) {
 			let sBox = document.createElement("div");
+			sBox.style.backgroundColor = 'white';
 			sBox.addEventListener('mouseover', colorIt);
 			sBox.addEventListener("mousedown", colorIt);
 			// sBox.addEventListener("mouseenter", hoverIt);
@@ -29,21 +42,41 @@
 		const allDiv = document.querySelectorAll(".wrapper div");
 		document.documentElement.style.setProperty("--colNum", side);
 		document.documentElement.style.setProperty("--rowNum", side);
-
+		
 		// event listener for mouse click
 		function colorIt(e) {
 			// console.log(e.type);
   			if (e.type === 'mouseover' && !mouseDown) return;
   			else {
-  				e.target.style.backgroundColor = "red";
+  				e.target.style.backgroundColor = "#eb4034";
   			}
 		}
 
-		// function hoverIt(e) {
-		// 	console.log("hi");
-		// 	e.target.style.backgroundColor = "grey";
-		// }
+		function erase() {
+			allDiv.forEach((eachDiv) => {
+				eachDiv.addEventListener("mouseenter", eraseArea);
+			});
+		}
 
+		function eraseArea(e) {
+			e.target.style.backgroundColor = 'white';
+		}
+
+		function refreshPage(){
+		    window.location.reload();
+		}
+
+		function clearAll() {
+			allDiv.forEach((area) => {
+				area.style.backgroundColor = 'white';
+			})
+		}
+	
+		const clearScreen = document.querySelector('.clear');
+		clearScreen.addEventListener("click", clearAll);
+
+		const eraseThis = document.querySelector(".erase");
+		eraseThis.addEventListener("click", erase);	
 	</script>
 
 </body>
